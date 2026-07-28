@@ -36,6 +36,7 @@ For now, Tesminux is mainly intended for development and experimentation.
 Clone the repository:
 
 git clone https://github.com/Dasmemetpasha/Tesminux.git
+
 cd Tesminux
 
 Build the Rust project:
