@@ -1,0 +1,12 @@
+[package]
+name = "tesminux-core"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "tesminux_core"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+portable-pty = "0.9"
+jni = "0.21"

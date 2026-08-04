@@ -1,0 +1,2 @@
+[target.aarch64-linux-android]
+linker = "C:/Users/Furka/AppData/Local/Android/Sdk/ndk/30.0.15729638/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android36-clang.cmd"
