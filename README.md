@@ -1,121 +1,210 @@
 # Tesminux
 
-An experimental Android terminal tool built with **Rust**.
+An open-source Android terminal emulator powered by **Rust**.
 
-Tesminux aims to provide a lightweight, fast, and enjoyable terminal experience for Android while exploring Rust, Android development, and native system integration.
+Tesminux aims to deliver a lightweight, fast, and modern terminal experience on Android while exploring Rust, native Android integration, and system-level development.
 
-> 🚧 Tesminux is currently in **beta**. Features are still being developed and may change between releases.
+> 🚧 Tesminux is currently in **Beta**. New features are actively being developed.
 
-## ✨ Current Status
+---
 
-**Version:** `0.1.0-beta.1`
+# ✨ Current Status
 
-Tesminux has reached its first Android beta release.
+**Version:** `v0.2.0`
 
-The current beta includes:
+Tesminux has reached its second beta milestone with a significantly improved architecture and terminal core.
 
-* Android application foundation
-* Rust native core integration
-* ARM64 Android support
-* Custom Tesminux adaptive launcher icon
-* Initial terminal application interface
-* Android project and Gradle build system
-* Real-device testing
+## What's New in v0.2
 
-**Tested on:** Redmi 12C
-**Status:** Successfully tested ✅
+- ✅ Multi-session terminal support
+- ✅ Command history
+- ✅ Improved Rust terminal engine
+- ✅ Better session management
+- ✅ JNI improvements
+- ✅ Android UI improvements
+- ✅ AI development guidelines
+- ✅ Codebase cleanup and refactoring
 
-## 🎯 Goals
+**Tested on**
 
-* 🦀 Build the core with Rust
-* 📱 Provide a reliable Android terminal experience
-* ⚡ Keep Tesminux lightweight and responsive
-* 💻 Support useful terminal functionality
-* 🧪 Experiment with native Android and terminal features
-* 📚 Learn and improve Rust, Android, and systems development
+- Redmi 12C ✅
 
-## 🛠️ Tech Stack
+**Android Support**
 
-* **Rust** — Native core
-* **Android** — Target platform
-* **Kotlin** — Android application layer
-* **Gradle** — Android build system
-* **Cargo** — Rust build system and package manager
+- Android 7.0+
 
-## 📦 Installation
+---
 
-Download the latest APK from the [Releases](https://github.com/Dasmemetpasha/Tesminux/releases) page.
+# 🚀 Features
 
-For the current beta:
+### Terminal
 
-**`Tesminux-0.1.0-beta.1.apk`**
+- Multiple terminal sessions
+- Command history
+- Native PTY backend
+- Fast Rust-powered execution
 
-> ⚠️ Beta releases are intended for testing and development. Features may be incomplete or change in future versions.
+### Android
 
-## 🚀 Development
+- Native Android application
+- Kotlin + Jetpack Compose UI
+- Rust integration through JNI
+- Material Design interface
 
-Clone the repository:
+### Project
+
+- Open Source
+- GPL-3.0 License
+- Modular architecture
+- AI-assisted development workflow
+
+---
+
+# 🎯 Project Goals
+
+- 🦀 Build a modern Android terminal using Rust
+- 📱 Provide a fast and stable mobile terminal
+- ⚡ Keep memory usage low
+- 🔓 Stay fully open source
+- 🧪 Experiment with native Android APIs
+- 📚 Learn Rust and systems programming
+
+---
+
+# 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|----------|
+| Rust | Native terminal engine |
+| Kotlin | Android application |
+| Jetpack Compose | User Interface |
+| JNI | Rust ↔ Android bridge |
+| Cargo | Rust build system |
+| Gradle | Android build system |
+
+---
+
+# 📦 Installation
+
+Download the latest APK from the Releases page.
+
+https://github.com/Dasmemetpasha/Tesminux/releases
+
+Current release
+
+**Tesminux v0.2.0**
+
+> Beta releases are intended for testing. Bugs and missing features are expected.
+
+---
+
+# 🏗 Building
+
+## Clone
 
 ```bash
 git clone https://github.com/Dasmemetpasha/Tesminux.git
 cd Tesminux
 ```
 
-### Rust Core
-
-Build the Rust components with Cargo:
+## Rust Core
 
 ```bash
+cd tesminux-core
 cargo build
 ```
 
-Run the Rust project when applicable:
+## Android
 
-```bash
-cargo run
-```
+Open the **Tesminux/** folder using Android Studio.
 
-### Android
-
-Open the project in **Android Studio**, allow Gradle to synchronize, and build the Android application from the `app` module.
-
-The Android application integrates the Tesminux Rust native core through the project's native library.
-
-## 🗺️ Roadmap
-
-The roadmap is flexible and will evolve as Tesminux develops.
-
-* [x] Initial Rust core
-* [x] Android project foundation
-* [x] Rust native core integration
-* [x] Android ARM64 support
-* [x] Custom application icon
-* [x] First Android beta
-* [x] Real-device testing
-* [ ] Improved terminal interface
-* [ ] Command execution
-* [ ] Terminal input/output improvements
-* [ ] File system interaction
-* [ ] Better error handling
-* [ ] Performance improvements
-* [ ] Additional Android architectures
-* [ ] More terminal features
-* [ ] Stable release
-
-## 🤝 Contributing
-
-Tesminux is an experimental open-source project.
-
-Ideas, bug reports, testing, and contributions are welcome.
-
-If you find a problem or have an idea for a feature, feel free to open an issue or contribute to the project.
-
-## 📄 License
-
-Tesminux is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
-
-See the [`LICENSE`](LICENSE) file for the full license text.
+Sync Gradle and build the application.
 
 ---
 
-**Tesminux — A Rust-powered terminal experiment for Android.**
+# 📁 Repository Structure
+
+```
+Tesminux/
+│
+├── Tesminux/            # Android Studio project
+├── tesminux-core/       # Rust terminal core
+├── ai_guidelines.md     # AI development handbook
+├── LICENSE
+└── README.md
+```
+
+---
+
+# 🗺 Roadmap
+
+## ✅ v0.1
+
+- Rust core
+- Android project
+- JNI integration
+- First Beta
+
+## ✅ v0.2
+
+- Multi-session support
+- Command history
+- Better architecture
+- Session manager
+- Rust improvements
+- Android improvements
+
+## 🚧 v0.3
+
+- File manager
+- File search
+- Themes
+- Favorites
+- Persistent working directory
+- ZIP support
+
+## 🔮 Future
+
+- SSH client
+- SFTP
+- Git integration
+- Python runtime
+- Lua runtime
+- Node.js runtime
+- Plugin system
+
+---
+
+# 🤝 Contributing
+
+Tesminux is an open-source community project.
+
+Bug reports, pull requests, feature suggestions and testing are always welcome.
+
+---
+
+# 📄 License
+
+Licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
+
+See the LICENSE file for details.
+
+---
+
+# ❤️ Special Thanks
+
+Thanks to everyone testing Tesminux and helping improve the project.
+
+Special thanks to the open-source Rust and Android communities.
+
+---
+
+# ⭐ Support
+
+If you enjoy Tesminux, consider giving the repository a **Star ⭐** on GitHub.
+
+It helps the project grow and motivates future development.
+
+---
+
+**Tesminux — A Rust-powered terminal emulator for Android.**
