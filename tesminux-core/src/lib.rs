@@ -10,9 +10,8 @@ use jni::JNIEnv;
 use std::fs;
 use std::sync::{Mutex, OnceLock};
 
-use terminal::session::SessionManager;
+use crate::terminal::session::SessionManager;
 
-const HOME: &str = "/data/data/com.tesminux.app/files/home";
 const CACHE: &str = "/data/data/com.tesminux.app/cache";
 
 static SESSIONS: OnceLock<Mutex<SessionManager>> = OnceLock::new();
@@ -22,7 +21,8 @@ fn get_sessions() -> &'static Mutex<SessionManager> {
 }
 
 fn prepare_environment() -> Result<(), Box<dyn std::error::Error>> {
-    fs::create_dir_all(HOME)?;
+    // /storage/emulated/0 is the user's external storage root and always exists.
+    // We only need to ensure the app cache directory is available.
     fs::create_dir_all(CACHE)?;
     Ok(())
 }
@@ -90,19 +90,18 @@ pub extern "system" fn Java_com_tesminux_app_MainActivity_tesminuxRead<'local>(
 ) -> JString<'local> {
     let sessions = get_sessions();
 
-    let sessions = match sessions.lock() {
-        Ok(value) => value,
-        Err(_) => {
-            return env.new_string("").unwrap();
-        }
+    let output = match sessions.lock() {
+        Ok(sessions) => match sessions.current_terminal() {
+            Some(t) => t.output(),
+            None => String::new(),
+        },
+        Err(_) => String::new(),
     };
 
-    let output = match sessions.current_terminal() {
-        Some(t) => t.output(),
-        None => String::new(),
-    };
-
-    env.new_string(output).unwrap()
+    match env.new_string(output) {
+        Ok(s) => s,
+        Err(_) => env.new_string("").unwrap_or_else(|_| JString::default()),
+    }
 }
 
 #[unsafe(no_mangle)]
@@ -137,83 +136,9 @@ pub extern "system" fn Java_com_tesminux_app_MainActivity_tesminuxClear(
     let sessions = get_sessions();
 
     if let Ok(mut sessions) = sessions.lock() {
-        if let Some(terminal) = sessions.current_terminal_mut() {
+        let terminal = sessions.current_terminal_mut();
+        if let Some(terminal) = terminal {
             terminal.clear_output();
         }
     }
-}
-
-#[unsafe(no_mangle)]
-pub extern "system" fn Java_com_tesminux_app_MainActivity_tesminuxCreateSession(
-    _env: JNIEnv,
-    _class: JClass,
-) -> jint {
-    let sessions = get_sessions();
-
-    let mut sessions = match sessions.lock() {
-        Ok(value) => value,
-        Err(_) => return -1,
-    };
-
-    let id = sessions.create_session();
-
-    if let Some(terminal) = sessions.current_terminal_mut() {
-        let _ = terminal.start();
-    }
-
-    id as jint
-}
-
-#[unsafe(no_mangle)]
-pub extern "system" fn Java_com_tesminux_app_MainActivity_tesminuxSwitchSession(
-    _env: JNIEnv,
-    _class: JClass,
-    index: jint,
-) -> jboolean {
-    let sessions = get_sessions();
-
-    let mut sessions = match sessions.lock() {
-        Ok(value) => value,
-        Err(_) => return 0,
-    };
-
-    if sessions.switch_to(index as usize) {
-        1
-    } else {
-        0
-    }
-}
-
-#[unsafe(no_mangle)]
-pub extern "system" fn Java_com_tesminux_app_MainActivity_tesminuxCloseSession(
-    _env: JNIEnv,
-    _class: JClass,
-) -> jboolean {
-    let sessions = get_sessions();
-
-    let mut sessions = match sessions.lock() {
-        Ok(value) => value,
-        Err(_) => return 0,
-    };
-
-    if sessions.close_current() {
-        1
-    } else {
-        0
-    }
-}
-
-#[unsafe(no_mangle)]
-pub extern "system" fn Java_com_tesminux_app_MainActivity_tesminuxSessionCount(
-    _env: JNIEnv,
-    _class: JClass,
-) -> jint {
-    let sessions = get_sessions();
-
-    let sessions = match sessions.lock() {
-        Ok(value) => value,
-        Err(_) => return 0,
-    };
-
-    sessions.count() as jint
 }

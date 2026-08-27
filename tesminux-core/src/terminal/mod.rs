@@ -1,4 +1,6 @@
+pub mod history;
 pub mod pty;
+pub mod session;
 
 pub struct Terminal {
     pty: Option<pty::Pty>,
@@ -8,6 +10,15 @@ impl Terminal {
     pub fn new() -> Self {
         Self { pty: None }
     }
+}
+
+impl Default for Terminal {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Terminal {
 
     pub fn start(&mut self) -> Result<(), Box<dyn std::error::Error>> {
         if self.pty.is_some() {
@@ -31,6 +42,19 @@ impl Terminal {
         match &self.pty {
             Some(pty) => pty.get_output(),
             None => String::new(),
+        }
+    }
+
+    pub fn clear_output(&mut self) {
+        if let Some(pty) = &mut self.pty {
+            pty.clear_output();
+        }
+    }
+
+    pub fn resize(&mut self, rows: u16, cols: u16) -> Result<(), Box<dyn std::error::Error>> {
+        match &self.pty {
+            Some(pty) => pty.resize(rows, cols),
+            None => Ok(()),
         }
     }
 

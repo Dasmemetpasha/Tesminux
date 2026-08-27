@@ -209,6 +209,7 @@ Never fabricate module names.
 
 ---
 
+<<<<<<< HEAD
 # 1.8 Decision Order
 
 Whenever multiple solutions exist:
@@ -3690,6 +3691,17 @@ Good architecture survives longer.
 The goal is not to finish Tesminux.
 
 The goal is to make Tesminux maintainable for the next ten years.
+
+## RULE 9: System Defaults
+* **Async:** Use `tokio` for async tasks. Keep async isolated from core UI logic.
+* **Dispatch:** Prefer static dispatch (Generics / Traits) over dynamic dispatch (`Box<dyn Trait>`).
+
+---
+
+## RULE 10: Single Session Focus (No Tab / Multi-Session Overhead)
+* **Single Terminal Session Architecture:**
+  * Keep Tesminux lightweight, fast, and stable by focusing strictly on a single, high-performance terminal session.
+  * Do NOT include multi-tab bars, session switching tabs, or complex multi-session UI logic. All operations should run within the single active terminal session.
 
 ==============================================================================
 END OF AI_GUIDELINES
