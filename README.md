@@ -1,121 +1,298 @@
-# Tesminux
+# 🦀 Tesminux
 
-An experimental Android terminal tool built with **Rust**.
+**Tesminux**, Android için geliştirilmiş, Rust tabanlı hafif bir terminal uygulamasıdır.
 
-Tesminux aims to provide a lightweight, fast, and enjoyable terminal experience for Android while exploring Rust, Android development, and native system integration.
+Tesminux'un terminal altyapısı **Rust** ile, Android kullanıcı arayüzü ise **Kotlin + Jetpack Compose** ile geliştirilmiştir.
 
-> 🚧 Tesminux is currently in **beta**. Features are still being developed and may change between releases.
+> 🏁 **Tesminux V10 — FINAL RELEASE**
+>
+> Tesminux'un aktif geliştirmesi sona ermiştir. **V10, projenin son resmi sürümüdür.**
 
-## ✨ Current Status
+---
 
-**Version:** `0.1.0-beta.1`
+## 🏁 Proje Durumu
 
-Tesminux has reached its first Android beta release.
+**Development: Discontinued**
 
-The current beta includes:
+Tesminux artık aktif olarak geliştirilmiyor.
 
-* Android application foundation
-* Rust native core integration
-* ARM64 Android support
-* Custom Tesminux adaptive launcher icon
-* Initial terminal application interface
-* Android project and Gradle build system
-* Real-device testing
+V10 sürümüyle birlikte:
 
-**Tested on:** Redmi 12C
-**Status:** Successfully tested ✅
+* Yeni özellik geliştirmeleri durdurulmuştur.
+* Yeni sürüm yayınlanması planlanmamaktadır.
+* Aktif bakım sona ermiştir.
+* Repository kaynak kodu arşiv amacıyla açık tutulmaktadır.
 
-## 🎯 Goals
+Mevcut V10 sürümü kullanılabilir durumda bırakılmıştır.
 
-* 🦀 Build the core with Rust
-* 📱 Provide a reliable Android terminal experience
-* ⚡ Keep Tesminux lightweight and responsive
-* 💻 Support useful terminal functionality
-* 🧪 Experiment with native Android and terminal features
-* 📚 Learn and improve Rust, Android, and systems development
+> Proje daha sonra yeniden geliştirilmeye başlanırsa bu durum ayrıca duyurulacaktır.
 
-## 🛠️ Tech Stack
+---
 
-* **Rust** — Native core
-* **Android** — Target platform
-* **Kotlin** — Android application layer
-* **Gradle** — Android build system
-* **Cargo** — Rust build system and package manager
+# ✨ Tesminux V10
 
-## 📦 Installation
+V10, Tesminux'un geliştirme sürecindeki son sürümüdür.
 
-Download the latest APK from the [Releases](https://github.com/Dasmemetpasha/Tesminux/releases) page.
+Bu sürümde Android uygulaması ve Rust native core üzerinde önemli değişiklikler yapılmıştır.
 
-For the current beta:
+### Android
 
-**`Tesminux-0.1.0-beta.1.apk`**
+* Kotlin tabanlı Android uygulaması
+* Jetpack Compose arayüzü
+* Terminal kullanıcı arayüzü
+* Android sistem entegrasyonu
+* JNI üzerinden native Rust core bağlantısı
 
-> ⚠️ Beta releases are intended for testing and development. Features may be incomplete or change in future versions.
+### Rust Core
 
-## 🚀 Development
+Tesminux'un native terminal altyapısı Rust ile geliştirilmiştir.
 
-Clone the repository:
+```text
+tesminux-core/
+├── src/
+│   ├── ansi.rs
+│   ├── commands.rs
+│   ├── filesystem.rs
+│   ├── lib.rs
+│   ├── main.rs
+│   └── terminal/
+│       ├── history.rs
+│       ├── mod.rs
+│       ├── pty.rs
+│       └── session.rs
+├── Cargo.toml
+└── Cargo.lock
+```
+
+---
+
+# 🏗️ Mimari
+
+Tesminux iki ana katmandan oluşur:
+
+```text
+┌──────────────────────────────────────┐
+│              Android UI              │
+│          Kotlin + Compose            │
+└──────────────────┬───────────────────┘
+                   │
+                   │ JNI
+                   ▼
+┌──────────────────────────────────────┐
+│             Tesminux Core            │
+│                 Rust                 │
+├──────────────────────────────────────┤
+│ PTY                                  │
+│ Terminal Sessions                    │
+│ ANSI Processing                      │
+│ Commands                             │
+│ Filesystem                           │
+│ History                              │
+└──────────────────────────────────────┘
+```
+
+### Teknolojiler
+
+| Teknoloji          | Kullanım                   |
+| ------------------ | -------------------------- |
+| 🦀 Rust            | Native terminal core       |
+| 📱 Kotlin          | Android uygulaması         |
+| 🎨 Jetpack Compose | Kullanıcı arayüzü          |
+| 🔗 JNI             | Kotlin ↔ Rust iletişimi    |
+| ⚙️ Cargo           | Rust build sistemi         |
+| 🏗️ Gradle         | Android build sistemi      |
+| 🖥️ PTY            | Terminal process altyapısı |
+
+---
+
+# 📱 Sistem Gereksinimleri
+
+Tesminux:
+
+**Android 7.0 (API 24)+**
+
+için geliştirilmiştir.
+
+Önerilen ortam:
+
+* Android 7.0 veya üzeri
+* ARM64 Android cihaz
+* Yeterli depolama alanı
+
+---
+
+# 📦 Kurulum
+
+Tesminux'un son sürümü GitHub Releases üzerinden APK olarak kullanılabilir.
+
+Kaynak koddan derlemek isteyen kullanıcılar repository'yi klonlayabilir.
 
 ```bash
 git clone https://github.com/Dasmemetpasha/Tesminux.git
 cd Tesminux
 ```
 
-### Rust Core
+---
 
-Build the Rust components with Cargo:
+# 🛠️ Kaynak Koddan Derleme
 
-```bash
-cargo build
-```
-
-Run the Rust project when applicable:
+## Rust Core
 
 ```bash
-cargo run
+cd tesminux-core
+cargo check
 ```
 
-### Android
+Android native build için Android NDK ve gerekli Rust Android target'larının kurulmuş olması gerekir.
 
-Open the project in **Android Studio**, allow Gradle to synchronize, and build the Android application from the `app` module.
+ARM64 Android target:
 
-The Android application integrates the Tesminux Rust native core through the project's native library.
-
-## 🗺️ Roadmap
-
-The roadmap is flexible and will evolve as Tesminux develops.
-
-* [x] Initial Rust core
-* [x] Android project foundation
-* [x] Rust native core integration
-* [x] Android ARM64 support
-* [x] Custom application icon
-* [x] First Android beta
-* [x] Real-device testing
-* [ ] Improved terminal interface
-* [ ] Command execution
-* [ ] Terminal input/output improvements
-* [ ] File system interaction
-* [ ] Better error handling
-* [ ] Performance improvements
-* [ ] Additional Android architectures
-* [ ] More terminal features
-* [ ] Stable release
-
-## 🤝 Contributing
-
-Tesminux is an experimental open-source project.
-
-Ideas, bug reports, testing, and contributions are welcome.
-
-If you find a problem or have an idea for a feature, feel free to open an issue or contribute to the project.
-
-## 📄 License
-
-Tesminux is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
-
-See the [`LICENSE`](LICENSE) file for the full license text.
+```text
+aarch64-linux-android
+```
 
 ---
 
-**Tesminux — A Rust-powered terminal experiment for Android.**
+## Android
+
+Repository'yi Android Studio ile açabilirsiniz.
+
+Windows:
+
+```powershell
+.\gradlew assembleDebug
+```
+
+Linux:
+
+```bash
+./gradlew assembleDebug
+```
+
+Debug APK:
+
+```text
+app/build/outputs/apk/debug/app-debug.apk
+```
+
+---
+
+# 📁 Proje Yapısı
+
+```text
+Tesminux/
+│
+├── app/
+│   └── src/
+│       ├── androidTest/
+│       └── main/
+│           ├── java/
+│           │   └── com/tesminux/app/
+│           │       ├── MainActivity.kt
+│           │       └── ui/
+│           │
+│           ├── jniLibs/
+│           │   └── arm64-v8a/
+│           │       └── libtesminux_core.so
+│           │
+│           ├── res/
+│           └── AndroidManifest.xml
+│
+├── tesminux-core/
+│   ├── src/
+│   │   ├── ansi.rs
+│   │   ├── commands.rs
+│   │   ├── filesystem.rs
+│   │   ├── lib.rs
+│   │   ├── main.rs
+│   │   └── terminal/
+│   │       ├── history.rs
+│   │       ├── mod.rs
+│   │       ├── pty.rs
+│   │       └── session.rs
+│   │
+│   ├── Cargo.toml
+│   └── Cargo.lock
+│
+├── gradle/
+├── build.gradle.kts
+├── settings.gradle.kts
+├── gradlew
+├── gradlew.bat
+├── LICENSE
+├── README.md
+└── ai_guidelines.md
+```
+
+---
+
+# 🔐 Güvenlik
+
+Tesminux bir terminal uygulaması olduğundan çalıştırılan komutların etkileri kullanılan Android ortamına ve shell'e bağlıdır.
+
+Tesminux'un native terminal altyapısı Rust ile oluşturulmuştur.
+
+Kullanıcılar terminal üzerinden çalıştırdıkları komutların ne yaptığını kontrol etmelidir.
+
+---
+
+# 🐛 Hata Bildirme
+
+Proje artık aktif olarak geliştirilmediği için yeni hataların düzeltilmesi veya özellik isteklerinin uygulanması garanti edilmez.
+
+Bununla birlikte repository açık olduğundan kullanıcılar:
+
+* Hata bildirebilir
+* Kaynak kodu inceleyebilir
+* Kendi fork'larını oluşturabilir
+* Kendi geliştirmelerini sürdürebilir
+
+---
+
+# 🤝 Fork ve Devam Ettirme
+
+Tesminux'un geliştirmesini devam ettirmek isteyen herkes repository'yi fork ederek kendi sürümünü oluşturabilir.
+
+Örneğin:
+
+```bash
+git clone https://github.com/Dasmemetpasha/Tesminux.git
+cd Tesminux
+```
+
+Daha sonra kendi branch'inizi oluşturabilirsiniz:
+
+```bash
+git checkout -b my-tesminux
+```
+
+Tesminux'un kaynak kodu, projenin geliştirme sürecini incelemek ve yeni projelere temel oluşturmak için kullanılabilir.
+
+---
+
+# 📜 Lisans
+
+Lisans bilgileri repository içerisindeki [`LICENSE`](LICENSE) dosyasında bulunmaktadır.
+
+---
+
+# 🕊️ Son Söz
+
+Tesminux bir öğrenme ve geliştirme projesi olarak başladı.
+
+Android üzerinde Rust kullanarak bir terminal altyapısı oluşturmak, JNI ile native kodu Android'e bağlamak ve zaman içerisinde uygulamayı geliştirmek projenin temel amaçları arasındaydı.
+
+**V10 ile birlikte bu yolculuk sona eriyor.**
+
+Projeyi kullanan, test eden, hata bildiren, fikir veren veya kaynak koduna katkıda bulunan herkese teşekkürler. ❤️
+
+---
+
+## 🏁 Tesminux V10
+
+**Final Release**
+
+> Development discontinued.
+> The repository remains available for archival and educational purposes.
+
+🦀 **Rust Core** · 📱 **Android** · 🏁 **V10 Final**
